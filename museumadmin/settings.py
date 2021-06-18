@@ -81,7 +81,7 @@ DATABASES = {
         'USER': 'djangouser',
         'PASSWORD': 'Reskill-2021',
         'HOST': '',
-        'PORT': '', 
+        'PORT': '',
     }
 }
 

@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'museumadmin.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'museum_data',
-        'USER': 'djangouser',
-        'PASSWORD': 'Reskill-2021',
-        'HOST': '',
-        'PORT': '',
+        'NAME': 'museum-django-admin',
+        'USER': 'pythontest',
+        'PASSWORD': 'pdai2@2o21SA',
+        'HOST': '68.183.121.201',
+        'PORT': '3306',
     }
 }
 

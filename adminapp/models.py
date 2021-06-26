@@ -10,14 +10,17 @@ class Exhibit(models.Model):
     exhibit_start = models.DateField(default=datetime.today)
     exhbit_end = models.DateField(default=datetime.today)
 
-    class Exhibit_Status(models.TextChoices):
-        temporary = 'Temporary'
-        feature = 'Feature'
+    class Exhibit_Status(models.Model):
 
-    exhibit_status = models.CharField(max_length=20,choices = Exhibit_Status.choices, default = Exhibit_Status.temporary)
+        STATUS = (('temp', ('Tempoary')),('feat.',('Feature')),)
+
+        status = models.CharField(max_length=32,choices=STATUS,default ='temp',)
+       
+
+  
 
     class Meta:
-        verbose_name_plural = "exhibit" # replace plural with singular verb 
+        verbose_name_plural = "exhibit_status" # replace plural with singular verb 
 
     def __str__(self):
         return self.exhibit_name

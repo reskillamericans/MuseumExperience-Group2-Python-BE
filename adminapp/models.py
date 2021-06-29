@@ -45,7 +45,7 @@ class User(AbstractUser):
         (3, 'curator'),
         (4,'admin'),
         )
-    user_type = models.PositiveSmallIntegerField(choices=User_Type_Choices)
+    user_type = models.PositiveSmallIntegerField(choices=User_Type_Choices, null=True)
 
     username = models.CharField(max_length=100, unique = True)
     email = models.EmailField(max_length=500, unique= True)
@@ -54,6 +54,31 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+class Visitor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    def __str__(self):
+        return self.user.username
+
+class Staff(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    def __str__(self):
+        return self.user.username
+
+class Curator(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    def __str__(self):
+        return self.user.username
+
+class Admin(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    def __str__(self):
+        return self.user.username
+
 
 class User_Porfile(models.Model):
 

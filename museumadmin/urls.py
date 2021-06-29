@@ -15,16 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from adminapp import views as adminapp_views
-
-
+from adminapp import views as adminapp_views 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', adminapp_views.index, name="Homepage" ),
+    #path('adminapp/', include('adminapp.urls')),
+    path('register/', adminapp_views.register, name='register'),
+    path('register/visitor/', adminapp_views.visitor_register.as_view(success_url="/"), name='visitor_register'),
+    path('register/staff/', adminapp_views.staff_register.as_view(success_url="/"), name='staff_register'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls'))
-]
-
-
+] 

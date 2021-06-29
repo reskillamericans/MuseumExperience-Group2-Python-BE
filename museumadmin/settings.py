@@ -81,14 +81,21 @@ WSGI_APPLICATION = 'museumadmin.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'museum-django-admin',
-        'USER': 'pythontest',
-        'PASSWORD': 'pdai2@2o21SA',
-        'HOST': '68.183.121.201',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+ 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'museum-django-admin',
+#         'USER': 'pythontest',
+#         'PASSWORD': 'pdai2@2o21SA',
+#         'HOST': '68.183.121.201',
+#         'PORT': '3306',
+#     }
+# }
 
 
 # Password validation
@@ -142,3 +149,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+AUTH_USER_MODEL = 'adminapp.User'

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from django.views.generic import CreateView
-from .models import User, Visitor, Staff, Curator, Admin
+from .models import User
 from .forms import VisitorSignUpForm, StaffSignUpForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout

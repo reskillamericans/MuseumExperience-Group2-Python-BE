@@ -4,11 +4,13 @@ from django.http import HttpResponse
 from django.views.generic import CreateView
 from .models import User, Visitor, Staff, Curator, Admin
 from .forms import VisitorSignUpForm, StaffSignUpForm
-from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
 def index(request):
-    return HttpResponse("<h1>Museum Admin App</h1>")
+    return render(request, 'index.html')
 
 def register(request):
     return render(request, 'register.html')
@@ -17,18 +19,41 @@ class visitor_register(CreateView):
     model = User
     form_class = VisitorSignUpForm
     template_name = 'visitor_register.html'
+    success_url = '/'
 
-    def validation(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('/')
+    def form_valid(self, form):
+        valid = super().form_valid(form)
+        login(self.request, self.object)
+        return valid
 
 class staff_register(CreateView):
     model = User
     form_class = StaffSignUpForm
     template_name = 'staff_register.html'
+    success_url = '/'
 
-    def validation(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('/')
+    def form_valid(self, form):
+        valid = super().form_valid(form)
+        login(self.request, self.object)
+        return valid
+
+
+def login_view(request):
+    if request.method=='POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+            else:
+                messages.error(request,"Invalid username or password.")
+        else:
+            messages.error(request,"Invalid username or password.")
+    return render(request, 'login.html', context={'login_form':AuthenticationForm()})
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')

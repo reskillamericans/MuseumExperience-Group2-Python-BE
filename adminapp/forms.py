@@ -41,7 +41,7 @@ class StaffSignUpForm(UserCreationForm):
         user = super().save(commit=False)
         user.username = self.cleaned_data.get('username')
         user.email = self.cleaned_data.get('email')
-        user.user_type = [int(i) for i in self.cleaned_data.get('staff_type')][0]
+        user.user_type = int(self.cleaned_data.get('staff_type')[0]) 
         user.save()
         if user.user_type == 2:
             staff = Staff.objects.create(user=user)

@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>STAFF</title>
+        <title>STAFF REG</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
@@ -20,7 +20,7 @@
         <form action="{% url 'staff_register' %}" method='POST' novalidate>
             {% csrf_token %}
             {{form}}
-            <input type="submit" value="Register" class="btn btn-block btn-primary">
+            <input type="submit" value="Register">
         </form>
         <script src="" async defer></script>
     </body>

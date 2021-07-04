@@ -8,6 +8,12 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
+
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
+
+from .serializers import UserSerializer
+
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
@@ -57,3 +63,8 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+class UserView(generics.ListCreateAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()

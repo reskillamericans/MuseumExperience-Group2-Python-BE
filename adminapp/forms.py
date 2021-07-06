@@ -51,3 +51,16 @@ class StaffSignUpForm(UserCreationForm):
             staff = User.objects.create(user=user)
         staff.save()
         return user
+
+
+class SubscribeForm(forms.ModelForm):
+    class Meta(UserCreationForm.Meta):
+        model = User 
+        fields = ['email']
+
+        def clean_email(self):
+            email = self.cleaned_data.get('email')
+
+            return email
+
+    

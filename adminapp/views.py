@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 from django.views.generic import CreateView
 from .models import User
-from .forms import VisitorSignUpForm, StaffSignUpForm
+from .forms import VisitorSignUpForm, StaffSignUpForm, SubscribeForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -68,3 +68,13 @@ def logout_view(request):
 class UserView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
+def subscribe(request): 
+    form = SubscribeForm(request.POST or None)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        if User.objects.filter(email=instance.email).exists():
+            messages.error(request,"Email is already subscribed.")
+        else:
+            instance.save()
+    return render(request, 'subscribe.html', context = {'subscribe_form': form})

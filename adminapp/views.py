@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from django.views.generic import CreateView
-from .models import User
+from .models import Subscriber, User
 from .forms import VisitorSignUpForm, StaffSignUpForm, SubscribeForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -12,7 +12,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 
-from .serializers import UserSerializer
+from .serializers import SubscribeSerializer, UserSerializer
 
 # Create your views here.
 def index(request):
@@ -68,13 +68,8 @@ def logout_view(request):
 class UserView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    
+class SubscribeView(generics.ListCreateAPIView):
+    serializer_class = SubscribeSerializer
+    queryset = Subscriber.objects.all()
 
-def subscribe(request): 
-    form = SubscribeForm(request.POST or None)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        if User.objects.filter(email=instance.email).exists():
-            messages.error(request,"Email is already subscribed.")
-        else:
-            instance.save()
-    return render(request, 'subscribe.html', context = {'subscribe_form': form})

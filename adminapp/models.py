@@ -50,7 +50,7 @@ class Exhibit(models.Model):
         verbose_name_plural = "exhibit_status"  # replace plural with singular verb
 
     def __str__(self):
-        return self.uuid
+        return self.name
 
 
 class Exhibit_Notification(models.Model):
@@ -71,3 +71,12 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question
+
+class Subscriber(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='subscriber_id')
+    exhibits = models.ManyToManyField(Exhibit)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.user)
+ 

@@ -12,8 +12,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 
-from .serializers import UserSerializer
-from .serializers import ExhibitSerializer
+from .serializers import ExhibitSerializer, UserSerializer
 
 # Create your views here.
 def index(request):
@@ -70,7 +69,9 @@ class UserView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
-
 class ExhibitView(generics.ListCreateAPIView):
     serializer_class = ExhibitSerializer
     queryset = Exhibit.objects.all()
+
+
+    

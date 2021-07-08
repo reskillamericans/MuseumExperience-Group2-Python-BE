@@ -1,7 +1,6 @@
 # import serializers from rest_framework
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from.models import Exhibit
 
 # import models from models.py
 from .models import User_Profile, Exhibit, Exhibit_Notification, Question
@@ -38,5 +37,3 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = ['id', 'question']
-
-

@@ -73,7 +73,7 @@ class Question(models.Model):
         return self.question
 
 class Subscriber(models.Model):
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='subscriber_id')
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING, related_name='subscriber_id')
     exhibits = models.ManyToManyField(Exhibit)
     active = models.BooleanField(default=True)
 

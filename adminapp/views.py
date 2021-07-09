@@ -2,17 +2,17 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from django.views.generic import CreateView
-from .models import User
+from .models import User, Subscription
 from .forms import VisitorSignUpForm, StaffSignUpForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
 
-from rest_framework import generics
+from rest_framework import generics, viewsets, mixins
 from rest_framework.permissions import AllowAny
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, SubscriptionSerializer
 
 # Create your views here.
 def index(request):
@@ -68,3 +68,13 @@ def logout_view(request):
 class UserView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
+class SubscriptionViewSet(viewsets.GenericViewSet,
+                     mixins.ListModelMixin,
+                     mixins.CreateModelMixin,
+                     mixins.RetrieveModelMixin,
+                     mixins.UpdateModelMixin,
+                     mixins.DestroyModelMixin
+                     ):
+    queryset = Subscription.objects.all()
+    serializer_class = SubscriptionSerializer

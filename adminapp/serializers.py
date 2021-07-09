@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 
 # import models from models.py
-from .models import User_Profile, Exhibit, Exhibit_Notification, Question
+from .models import User, User_Profile, Exhibit, Exhibit_Notification, Question, Subscription
 
 
 # create a model serializer
@@ -37,3 +37,9 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = ['id', 'question']
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subscription
+        fields = ['uuid', 'user', 'exhibits'] 
+

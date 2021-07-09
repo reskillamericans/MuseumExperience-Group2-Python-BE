@@ -2,22 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from django.views.generic import CreateView
-from .models import Exhibit
-from .models import User
 from .forms import VisitorSignUpForm, StaffSignUpForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-
-
-from rest_framework import generics
-from rest_framework.permissions import AllowAny
-
-
-from .serializers import ExhibitSerializer
-
-from .serializers import UserSerializer
-
 
 # Create your views here.
 def index(request):
@@ -77,6 +65,3 @@ class UserView(generics.ListCreateAPIView):
 class ExhibitView(generics.ListCreateAPIView):
     serializer_class = ExhibitSerializer
     queryset = Exhibit.objects.all()
-
-
-   

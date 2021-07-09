@@ -19,8 +19,10 @@ from adminapp import views as adminapp_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
     path('', adminapp_views.index, name="homepage" ),
     path('accounts/', include('adminapp.urls')),
+    path('api/', include('api.urls')),
 
     # rest framework and dj-auth
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

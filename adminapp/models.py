@@ -72,10 +72,10 @@ class Question(models.Model):
     def __str__(self):
         return self.question
 
-class Subscriber(models.Model):
-    user = models.OneToOneField(User, on_delete=models.DO_NOTHING, related_name='subscriber_id')
-    exhibits = models.ManyToManyField(Exhibit)
-    active = models.BooleanField(default=True)
+class Subscription(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING, related_name='subscription_id')
+    exhibits = models.ManyToManyField(Exhibit, blank=True)
 
     def __str__(self):
         return str(self.user)

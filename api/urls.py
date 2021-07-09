@@ -10,4 +10,5 @@ router.register('subscription', api.views.SubscriptionViewSet, basename='subscri
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('get-exhibits', api.views.ExhibitView.as_view(), name='get-exhibits')
 ]

@@ -3,9 +3,12 @@ from django.http import HttpResponse
 
 from django.views.generic import CreateView
 from .forms import VisitorSignUpForm, StaffSignUpForm
+from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+
+User = get_user_model()
 
 # Create your views here.
 def index(request):
@@ -57,11 +60,3 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
-
-class UserView(generics.ListCreateAPIView):
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
-
-class ExhibitView(generics.ListCreateAPIView):
-    serializer_class = ExhibitSerializer
-    queryset = Exhibit.objects.all()

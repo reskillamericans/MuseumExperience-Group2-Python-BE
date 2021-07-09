@@ -1,9 +1,9 @@
 from django.contrib.auth import get_user_model
 from rest_framework import generics, viewsets, mixins
 
-from adminapp.models import Subscription
+from adminapp.models import Subscription, Exhibit
 
-from .serialiers import UserSerializer, SubscriptionSerializer
+from .serialiers import UserSerializer, SubscriptionSerializer, ExhibitSerializer
 
 User = get_user_model()
 
@@ -11,6 +11,11 @@ User = get_user_model()
 class UserView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
+
+class ExhibitView(generics.ListCreateAPIView):
+    serializer_class = ExhibitSerializer
+    queryset = Exhibit.objects.all()
 
 
 class SubscriptionViewSet(viewsets.GenericViewSet,

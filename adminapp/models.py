@@ -47,7 +47,7 @@ class Exhibit(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = "exhibit_status"  # replace plural with singular verb
+        verbose_name_plural = "Exhibit"  # replace plural with singular verb
 
     def __str__(self):
         return self.name

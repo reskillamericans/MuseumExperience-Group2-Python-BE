@@ -8,4 +8,6 @@ urlpatterns = [
     path('register/staff', views.staff_register.as_view(), name='staff_register'),
     path('login', views.login_view, name='login'),
     path('logout', views.logout_view, name='logout'),
+    path('user', views.UserView.as_view(), name="user"),
+    path('exhibit', views.ExhibitView.as_view(), name = 'exhibit')
 ]  

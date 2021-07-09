@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from django.views.generic import CreateView
-from .models import User, Subscription
 from .forms import VisitorSignUpForm, StaffSignUpForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -57,3 +56,12 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+class UserView(generics.ListCreateAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+class ExhibitView(generics.ListCreateAPIView):
+    serializer_class = ExhibitSerializer
+    queryset = Exhibit.objects.all()

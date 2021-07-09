@@ -1,9 +1,12 @@
 # import serializers from rest_framework
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 # import models from models.py
-from .models import User, User_Profile, Exhibit, Exhibit_Notification, Question, Subscription
+from adminapp.models import (User, User_Profile, Exhibit, 
+                            Exhibit_Notification, Question, Subscription)
 
 
 # create a model serializer

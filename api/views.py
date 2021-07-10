@@ -18,7 +18,7 @@ class ExhibitView(generics.ListCreateAPIView):
     queryset = Exhibit.objects.all()
 
 
-class ExhibitDetail(generics.RetrieveDestroyAPIView):
+class ExhibitDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ExhibitSerializer
     queryset = Exhibit.objects.all()
 

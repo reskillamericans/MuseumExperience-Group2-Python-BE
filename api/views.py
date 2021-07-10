@@ -18,12 +18,17 @@ class ExhibitView(generics.ListCreateAPIView):
     queryset = Exhibit.objects.all()
 
 
+class ExhibitDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ExhibitSerializer
+    queryset = Exhibit.objects.all()
+
+
 class SubscriptionViewSet(viewsets.GenericViewSet,
-                     mixins.ListModelMixin,
-                     mixins.CreateModelMixin,
-                     mixins.RetrieveModelMixin,
-                     mixins.UpdateModelMixin,
-                     mixins.DestroyModelMixin
-                     ):
+                          mixins.ListModelMixin,
+                          mixins.CreateModelMixin,
+                          mixins.RetrieveModelMixin,
+                          mixins.UpdateModelMixin,
+                          mixins.DestroyModelMixin
+                          ):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer

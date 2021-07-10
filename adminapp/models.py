@@ -50,7 +50,7 @@ class Exhibit(models.Model):
         verbose_name_plural = "Exhibit"  # replace plural with singular verb
 
     def __str__(self):
-        return self.name
+        return str(self.uuid)
 
 
 class Exhibit_Notification(models.Model):

@@ -13,12 +13,13 @@ class UserView(generics.ListCreateAPIView):
     queryset = User.objects.all()
 
 
-class ExhibitView(generics.ListCreateAPIView):
+class ExhibitView(generics.ListAPIView):
     serializer_class = ExhibitSerializer
     queryset = Exhibit.objects.all()
 
 
 class ExhibitDetail(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'uuid'
     serializer_class = ExhibitSerializer
     queryset = Exhibit.objects.all()
 

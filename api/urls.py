@@ -12,5 +12,5 @@ urlpatterns = [
     path('get-exhibits', api.views.ExhibitView.as_view(), name='get-exhibits'),
     url(r'^get-exhibits-details/(?P<uuid>.*)$', api.views.ExhibitDetail.as_view()),
     url(r'^create-user/$', api.views.CreateUserView.as_view()),
-    url('faqs', api.views.FaqView.as_view(), name='faq')
+    path('faqs', api.views.FaqView.as_view(), name='faq')
 ]

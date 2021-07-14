@@ -5,8 +5,8 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 # import models from models.py
-from adminapp.models import (User, User_Profile, Exhibit, 
-                            Exhibit_Notification, Question, Subscription)
+from adminapp.models import (User, User_Profile, Exhibit,
+                             Exhibit_Notification, Question, Subscription, Faq)
 
 
 # create a model serializer
@@ -41,8 +41,14 @@ class QuestionSerializer(serializers.ModelSerializer):
         model = Question
         fields = ['id', 'question']
 
+
 class SubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscription
-        fields = ['uuid', 'user', 'exhibits'] 
+        fields = ['uuid', 'user', 'exhibits']
 
+
+class FaqSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Faq
+        fields = ['question', 'answer']

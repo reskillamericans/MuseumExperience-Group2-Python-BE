@@ -72,6 +72,7 @@ class Question(models.Model):
     def __str__(self):
         return self.question
 
+
 class Subscription(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING, related_name='subscription_id')
@@ -79,4 +80,11 @@ class Subscription(models.Model):
 
     def __str__(self):
         return str(self.user)
- 
+
+
+class Faq(models.Model):
+    question = models.TextField()
+    answer = models.TextField()
+
+    def __str__(self):
+        return str(self.answer)

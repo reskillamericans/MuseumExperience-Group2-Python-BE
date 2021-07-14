@@ -11,12 +11,11 @@ User = get_user_model()
 class UserView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-
+    permission_classes = (permissions.IsAuthenticated, permissions.IsAdminUser)
 
 class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
-    # Allow authenticated user to access this url
-    permission_classes = [permissions.IsAdminUser]
+    queryset = User.objects.all()
 
 
 class ExhibitView(generics.ListAPIView):
@@ -44,4 +43,4 @@ class SubscriptionViewSet(viewsets.GenericViewSet,
 class FaqView(generics.ListAPIView):
     serializer_class = FaqSerializer
     queryset = Faq.objects.all()
-    permission_class = [permissions.IsAdminUser]
+    permission_class = [permissions.IsAdminUser, permissions.IsAuthenticated]

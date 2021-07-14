@@ -1,22 +1,36 @@
 import uuid
 from django.db import models
 from datetime import datetime
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
+from .managers import CustomUserManager
 
 
-class User(AbstractUser):
+class User(AbstractBaseUser, PermissionsMixin):
+    VISITOR = 1
+    STAFF = 2
+    CURATOR = 3
     USER_TYPE_CHOICES = (
-        (1, 'visitor'),
-        (2, 'staff'),
-        (3, 'curator'),
-        (4, 'admin'),
+        (VISITOR, 'VISITOR'),
+        (STAFF, 'STAFF'),
+        (CURATOR, 'CURATOR'),
     )
-    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=None, null=True, blank=True)
+    first_name = models.CharField(max_length=512, default=None, null=True, blank=True)
+    last_name = models.CharField(max_length=512, default=None, null=True, blank=True)
+    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=VISITOR, null=True, blank=True)
     username = models.CharField(max_length=100, unique=True, blank=True, null=True, default=None)
     email = models.EmailField(max_length=500, unique=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_curator = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
+
+    USERNAME_FIELD = 'email'
+
+    REQUIRED_FIELDS = ('username', )
+
+    objects = CustomUserManager()
 
     class Meta:
         verbose_name_plural = "user"  # replace plural with singular verb
@@ -83,8 +97,9 @@ class Subscription(models.Model):
 
 
 class Faq(models.Model):
-    question = models.TextField()
-    answer = models.TextField()
+    uuid = models.UUIDField(default=uuid.uuid4, null=True, blank=True)
+    question = models.TextField(null=True, blank=True, default=None)
+    answer = models.TextField(null=True, blank=True, default=None)
 
     def __str__(self):
-        return str(self.answer)
+        return str(self.uuid)

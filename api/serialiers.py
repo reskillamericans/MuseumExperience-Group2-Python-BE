@@ -1,20 +1,26 @@
 # import serializers from rest_framework
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+# import models from models.py
+from adminapp.models import (User, User_Profile, Exhibit,
+                            Exhibit_Notification, Question, Subscription, Faq)
+from rest_framework.validators import UniqueValidator                          
+
 
 User = get_user_model()
 
-# import models from models.py
-from adminapp.models import (User, User_Profile, Exhibit,
-                             Exhibit_Notification, Question, Subscription, Faq)
-
-
 # create a model serializer
 class UserSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(required=True, validators=[UniqueValidator(queryset=User.objects.all())])
+    email = serializers.EmailField(required=True, validators=[UniqueValidator(queryset=User.objects.all())])
+    password = serializers.CharField(write_only=True, min_length=8)
     class Meta:
         model = User
-        # specify field names
-        fields = ['user_type', 'username', 'email']
+        fields = ['id', 'user_type', 'username', 'email', 'password']
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -51,4 +57,4 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 class FaqSerializer(serializers.ModelSerializer):
     class Meta:
         model = Faq
-        fields = ['question', 'answer']
+        fields = ['id', 'question', 'answer']

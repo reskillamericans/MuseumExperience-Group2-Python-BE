@@ -7,7 +7,6 @@ from .serialiers import UserSerializer, SubscriptionSerializer, ExhibitSerialize
 
 User = get_user_model()
 
-
 class UserView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()

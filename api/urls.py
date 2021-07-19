@@ -27,4 +27,7 @@ urlpatterns = [
          VerifyEmailView.as_view(), name='account_email_verification_sent'),
     re_path(r'^account-confirm-email/(?P<key>[-:\w]+)/$',
          VerifyEmailView.as_view(), name='account_confirm_email'),
+     path('question', api.views.QuestionView.as_view()),
+     path('exhibit', api.views.ExhibitView.as_view()),
+     path('search', api.views.SearchView.as_view())
 ]

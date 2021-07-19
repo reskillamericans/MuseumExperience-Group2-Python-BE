@@ -78,7 +78,7 @@ class Exhibit_Notification(models.Model):
 
 
 class Question(models.Model):
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='user_question_id')
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='user_question_id', null = True)
     question = models.CharField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)

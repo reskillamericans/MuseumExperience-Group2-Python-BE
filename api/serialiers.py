@@ -43,6 +43,7 @@ class NotificationSerializer(serializers.ModelSerializer):
 
 
 class QuestionSerializer(serializers.ModelSerializer):
+    question = serializers.CharField(required=True)
     class Meta:
         model = Question
         fields = ['id', 'question', 'user', 'created_at', 'answered']

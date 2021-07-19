@@ -2,12 +2,14 @@ from django.contrib.auth import get_user_model
 from rest_framework import generics, viewsets, mixins, filters
 from rest_framework import permissions
 from adminapp.models import Subscription, Exhibit, Faq, Question
-from rest_framework.generics import ListCreateAPIView,  RetrieveUpdateDestroyAPIView
+import django_filters.rest_framework
+from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
+
+
 from .serialiers import UserSerializer, SubscriptionSerializer, ExhibitSerializer, FaqSerializer, QuestionSerializer
 
 User = get_user_model()
-
 
 class UserView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
@@ -46,8 +48,8 @@ class FaqView(generics.ListAPIView):
     queryset = Faq.objects.all()
     permission_class = [permissions.IsAdminUser, permissions.IsAuthenticated]
 
-
-class QuestionsAPIView(ListCreateAPIView):
+class QuestionView(generics.ListCreateAPIView):
+    #permission_classes = [permissions.IsAuthenticated]  #authentication 
     filterset_fields = {
             'question': ['contains'],
             'user__email': ['exact'],
@@ -58,3 +60,20 @@ class QuestionsAPIView(ListCreateAPIView):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter,] 
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    
+
+
+class ExhibitView(generics.ListCreateAPIView):
+    #permission_classes = [permissions.IsAdminUser, permissions.IsAuthenticated]    # authenticated classes is Admin
+    serializer_class = ExhibitSerializer
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]  # filter to exhibit view 
+    ordering_fields = ['name','uuid'] # filter to exhibit view 
+    queryset = Exhibit.objects.all()
+
+
+class SearchView(generics.ListCreateAPIView):
+    search_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
+    queryset = Exhibit.objects.all()
+    serializer_class = ExhibitSerializer
+

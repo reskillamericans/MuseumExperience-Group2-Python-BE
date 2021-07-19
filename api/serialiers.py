@@ -45,7 +45,7 @@ class NotificationSerializer(serializers.ModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ['id', 'question']
+        fields = ['id', 'question', 'user', 'created_at', 'answered']
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):

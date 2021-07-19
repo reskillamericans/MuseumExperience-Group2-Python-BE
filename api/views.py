@@ -1,9 +1,10 @@
 from django.contrib.auth import get_user_model
-from rest_framework import generics, viewsets, mixins
+from rest_framework import generics, viewsets, mixins, filters
 from rest_framework import permissions
-from adminapp.models import Subscription, Exhibit, Faq
-
-from .serialiers import UserSerializer, SubscriptionSerializer, ExhibitSerializer, FaqSerializer
+from adminapp.models import Subscription, Exhibit, Faq, Question
+from rest_framework.generics import ListCreateAPIView,  RetrieveUpdateDestroyAPIView
+from django_filters.rest_framework import DjangoFilterBackend
+from .serialiers import UserSerializer, SubscriptionSerializer, ExhibitSerializer, FaqSerializer, QuestionSerializer
 
 User = get_user_model()
 
@@ -44,3 +45,16 @@ class FaqView(generics.ListAPIView):
     serializer_class = FaqSerializer
     queryset = Faq.objects.all()
     permission_class = [permissions.IsAdminUser, permissions.IsAuthenticated]
+
+
+class QuestionsAPIView(ListCreateAPIView):
+    filterset_fields = {
+            'question': ['contains'],
+            'user__email': ['exact'],
+            'created_at': ['exact'],
+            'answered': ['exact']
+        }
+    ordering = ['created_at']
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter,] 
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer

@@ -2,6 +2,8 @@ import api.views
 from django.urls import path, include
 from django.conf.urls import url
 from rest_framework.routers import DefaultRouter
+from . import views
+from .views import QuestionsAPIView
 
 router = DefaultRouter()
 
@@ -12,5 +14,6 @@ urlpatterns = [
     path('get-exhibits', api.views.ExhibitView.as_view(), name='get-exhibits'),
     url(r'^get-exhibits-details/(?P<uuid>.*)$', api.views.ExhibitDetail.as_view()),
     url(r'^create-user/$', api.views.CreateUserView.as_view()),
-    path('faqs', api.views.FaqView.as_view(), name='faq')
+    path('faqs', api.views.FaqView.as_view(), name='faq'),
+    path('questions/', QuestionsAPIView.as_view())
 ]

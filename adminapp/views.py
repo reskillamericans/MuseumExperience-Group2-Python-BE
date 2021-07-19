@@ -1,16 +1,33 @@
+<<<<<<< HEAD
 from django.db.models import fields
 from adminapp.models import Exhibit
+=======
+>>>>>>> c13c05d4ec42dcc4ea1630aaab94b3bb5abb10d4
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from django.views.generic import CreateView
 from .forms import VisitorSignUpForm, StaffSignUpForm
+<<<<<<< HEAD
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from rest_framework.decorators import api_view, permission_classes #added my Morris - may or may not be needed for authentication 
 from rest_framework.permissions import IsAuthenticated #added my Morris - may or may not be needed for authentication 
 
+=======
+from django.contrib.auth import get_user_model
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+
+from .models import User
+from rest_framework.generics import ListCreateAPIView,  RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticated
+from api.serialiers import UserSerializer
+
+User = get_user_model()
+>>>>>>> c13c05d4ec42dcc4ea1630aaab94b3bb5abb10d4
 
 # Create your views here.
 def index(request):
@@ -62,6 +79,7 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
+<<<<<<< HEAD
 
 class UserView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
@@ -80,3 +98,14 @@ class QuestionView(generics.ListCreateAPIView):
     permission_classes((IsAuthenticated,))
     serializer_class = QuestionSerializer
     queryset = Question.objects.all()
+=======
+class UserList(ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class UserDetail(RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+>>>>>>> c13c05d4ec42dcc4ea1630aaab94b3bb5abb10d4

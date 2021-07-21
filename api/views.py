@@ -6,7 +6,7 @@ import django_filters.rest_framework
 from rest_framework import filters
 
 
-from .serialiers import UserSerializer, SubscriptionSerializer, ExhibitSerializer, FaqSerializer, QuestionSerializer
+from .serialiers import CreateUserSerializer, UserSerializer, SubscriptionSerializer, ExhibitSerializer, FaqSerializer, QuestionSerializer
 
 User = get_user_model()
 
@@ -66,4 +66,9 @@ class SearchView(generics.ListCreateAPIView):
     filter_backends = (filters.SearchFilter,)
     queryset = Exhibit.objects.all()
     serializer_class = ExhibitSerializer
+
+
+class CreateUserView(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAdminUser, permissions.IsAuthenticated]
+    serializer_class = CreateUserSerializer
 

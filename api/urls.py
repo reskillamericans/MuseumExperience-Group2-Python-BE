@@ -30,5 +30,5 @@ urlpatterns = [
      path('question', api.views.QuestionView.as_view()),
      path('exhibit', api.views.ExhibitView.as_view()),
      path('search', api.views.SearchView.as_view()),
-     path('create', api.views.CreateUserView.as_view()),
+     path('create-user', api.views.CreateUserView.as_view()),
 ]

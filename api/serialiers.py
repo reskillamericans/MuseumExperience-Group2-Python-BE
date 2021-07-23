@@ -46,7 +46,7 @@ class QuestionSerializer(serializers.ModelSerializer):
     question = serializers.CharField(required=True)
     class Meta:
         model = Question
-        fields = ['id', 'question']
+        fields = ['id', 'question', 'user', 'created_at', 'answered']
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):

@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_filters',
 
     # apps
     'adminapp',
@@ -156,12 +157,17 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
     ],
 }
 
 AUTH_USER_MODEL = 'adminapp.User'
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',

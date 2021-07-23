@@ -15,8 +15,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         (STAFF, 'STAFF'),
         (CURATOR, 'CURATOR'),
     )
-    first_name = models.CharField(max_length=512, default=None, null=True, blank=True)
-    last_name = models.CharField(max_length=512, default=None, null=True, blank=True)
+    full_name = models.CharField(max_length=512, default=None, null=True, blank=True)
     user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=VISITOR, null=True, blank=True)
     username = models.CharField(max_length=100, unique=True, blank=True, null=True, default=None)
     email = models.EmailField(max_length=500, unique=True)
@@ -36,7 +35,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = "user"  # replace plural with singular verb
 
     def __str__(self):
-        return self.email
+        return str(self.email)
 
 
 class User_Profile(models.Model):
@@ -48,7 +47,7 @@ class User_Profile(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user
+        return str(self.user)
 
 
 class Exhibit(models.Model):
